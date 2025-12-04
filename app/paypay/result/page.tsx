@@ -1,15 +1,19 @@
 // app/paypay/result/page.tsx
-
-export const dynamic = "force-dynamic";
-
+import { Suspense } from "react";
 import PayPayResultClient from "./PayPayResultClient";
 
-type ResultPageProps = {
-  searchParams: { merchantPaymentId?: string };
-};
-
-export default function PayPayResultPage({ searchParams }: ResultPageProps) {
-  const merchantPaymentId = searchParams.merchantPaymentId ?? null;
-
-  return <PayPayResultClient merchantPaymentId={merchantPaymentId} />;
+export default function PayPayResultPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-screen flex items-center justify-center p-6">
+          <div className="border rounded-xl p-6 shadow-sm">
+            <p>Loading PayPay result...</p>
+          </div>
+        </main>
+      }
+    >
+      <PayPayResultClient />
+    </Suspense>
+  );
 }

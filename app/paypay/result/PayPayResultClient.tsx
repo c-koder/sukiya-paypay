@@ -2,17 +2,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 type StatusResult = {
   payPayStatus: number;
   body: any;
 };
 
-export default function PayPayResultClient({
-  merchantPaymentId,
-}: {
-  merchantPaymentId: string | null;
-}) {
+export default function PayPayResultClient() {
+  const searchParams = useSearchParams();
+  const merchantPaymentId = searchParams.get("merchantPaymentId");
+
   const [loading, setLoading] = useState(true);
   const [statusData, setStatusData] = useState<StatusResult | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -61,7 +61,9 @@ export default function PayPayResultClient({
         <h1 className="text-2xl font-semibold">PayPay Payment Result</h1>
         <p className="text-sm text-gray-600">
           merchantPaymentId.{" "}
-          <span className="font-mono">{merchantPaymentId}</span>
+          <span className="font-mono">
+            {merchantPaymentId ?? "(none in URL)"}
+          </span>
         </p>
 
         {loading && <p>Checking payment status...</p>}
