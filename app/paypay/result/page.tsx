@@ -1,4 +1,7 @@
 // app/paypay/result/page.tsx
+
+export const dynamic = "force-dynamic";
+
 import PayPayResultClient from "./PayPayResultClient";
 
 type ResultPageProps = {
